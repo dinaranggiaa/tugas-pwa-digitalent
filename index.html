@@ -69,20 +69,21 @@
           //   reg.showNotification('Notifikasi diizinkan!');
           // });
 
+
           if(('PushManager' in window)) {
-            navigator.serviceWorker.getRegistration().then(function(registration){
-              registration.pushManager.subscribe({
+            navigator.serviceWorker.ready.then(registration => registration.pushManager.subscribe({
                 userVisibleOnly: true,
-                applicationServerKey: urlBase64ToUnit8Array("qUHoKIGWq5qy0")
+                applicationServerKey: urlBase64ToUnit8Array("BPnValtaac36QaWxxxSUDMtK8rIGlMhUztVTl5gSKOY73LOejzuLdyjgLJ5I3fY1GbJyZz0nEI6b6nDcGxTf6Wc")
+                
               }).then(function(subscribe) {
                 console.log('Berhasil melakukan subscribe dengan endpoint: ', subscribe.endpoint);
                 console.log('Berhasil melakukan subscribe dengan p256dh key: ', btoa(String.fromCharCode.apply(new Uint8Array(subscribe.getKey('p256dh')))));
                 console.log('Berhasil melakukan subscribe dengan auth key: ', btoa(String.fromCharCode.apply(null, new Uint8Array(subscribe.getKey('auth')))));
               }).catch(function(e) {
                 console.error('Tidak dapat melakukan subscribe ', e.message);
-              });
+              })
 
-            });
+            );
           }
         });
       }
